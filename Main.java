@@ -1,7 +1,8 @@
-package com.pdc.assignment2;
-
+package assignment2pdc;
 
 import java.awt.Font;
+import java.awt.event.*;
+import java.sql.SQLException;
 import javax.swing.*;
 
 /*
@@ -14,23 +15,17 @@ import javax.swing.*;
  */
 public class Main {
 
-    String password = "admin";
+    static String password = "admin";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
-        JFrame frame = new JFrame("Ticket Booking System");
-        JButton admin = new JButton("Admin Button");
-        admin.setText("ADMIN");
-        Font buttonFont = new Font("Arial", Font.PLAIN, 16);
-        admin.setFont(buttonFont);
+        DBManager manager = new DBManager();
 
-        frame.setSize(1920 / 2, 1080 / 2);
-        admin.setSize(150, 50);
-        admin.setFocusPainted(false);
-        frame.add(admin);
+        UserList users = new UserList();
+        users.getUsers(manager);
 
-        frame.setLayout(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        MainFrame main = new MainFrame(users, manager);
+        
+        main.setVisible(true);
     }
 }
